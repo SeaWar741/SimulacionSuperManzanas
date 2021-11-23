@@ -18,7 +18,34 @@ A continuación se muestran las librerias y tecnologías necesarias para usar el
 - Seaborn
 - Pandas
 - IPython
+- Anaconda
 - Unity 2019.4.18f1
+
+## **Instalación:**
+Para la instalación recomendamos el uso de conda para los ambientes. Una vez instalado, realizar el siguiente comando en el directorio
+
+    $ conda create --name Agentes --file requirements.txt
+
+Es necesario instalar la version de Unity mostrada anteriormente y verificar que el paquete se pueda abrir correctamente 
+
+## **Ejecución:**
+
+Se debe de ejecutar el Jupyter Notebook, las celdas hasta el servidor de manera secuencial. Esto abrirá un socket en localhost
+
+Para simular el escenario base:
+
+    http://localhost:3000/simulate/
+
+Esto regresa un JSON con un arreglo con los tipos de vehiculos, los cuales contienen un arreglo de cada step. Este step contiene un indice que representa cada agente. Cada indice es un arreglo, en donde cada indice representa algo distinto.
+
+- 0: arreglo de posicion [x,y] 
+- 1: orientacion
+
+La orientacion viene dada de la siguiente manera: 
+- 0 = up
+- 1 = right
+- 2 = down
+- 3 = left
 
 ## **Documentación API:**
 La API corre en Python 3, para esto es necesario contar con las librerias necesarias. El puerto usado es el 3000 y es recomendado usar https para las llamadas. 
