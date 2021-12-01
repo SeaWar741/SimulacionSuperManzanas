@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es-mx">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Simulación Super Manzanas</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='TemplateData/favicon.ico') }}">
+
+    <!--UI KIT-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/uikit.min.css') }}"/>
+    <script src="{{ url_for('static', filename='js/uikit.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/uikit-icons.min.js') }}"></script>
+
+  </head>
+  <body>
+
+    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; top: #transparent-sticky-navbar">
+        <nav class="uk-navbar-container" uk-navbar>
+
+            <div class="uk-navbar-left">
+        
+                <ul class="uk-navbar-nav">
+                    <li class="uk-active"><a href="#">Inicio</a></li>
+                </ul>
+        
+            </div>
+        
+            <div class="uk-navbar-right">
+        
+                <ul class="uk-navbar-nav">
+                    <li ><a href="#introduccion">Introduccion</a></li>
+                    <li>
+                        <a href="#">Documentación</a>
+                        <div class="uk-navbar-dropdown">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li><a href="#contexto">Contexto y problema</a></li>
+                                <li><a href="#descripcion">Descripción del sistema multiagente</a></li>
+                                <li><a href="#creditos">Créditos y Equipo</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="/simulation">Simulación</a></li>
+                    <li><a href="https://raw.githubusercontent.com/SeaWar741/SimulacionSuperManzanas/main/Paper.pdf" target="_blank">Documento</a></li>
+                    <li><a href="https://github.com/SeaWar741/SimulacionSuperManzanas" target="_blank"><span uk-icon="github"></span>Repositorio</a></li>
+                </ul>
+        
+            </div>
+        
+        </nav>
+    </div>
+
+    <div>
+        <div class="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
+            data-src="{{ url_for('static', filename='img/SuperManzana.png')}}"
+            data-srcset="{{ url_for('static', filename='img/SuperManzana.png')}} 650w,
+            {{ url_for('static', filename='img/SuperManzana.png')}} 1300w"
+            data-sizes="(min-width: 650px) 650px, 200vw" uk-img>
+            <h1>Simulación Super Manzanas: Implementación con multiagentes</h1>
+        </div>
+    </div>
+
+
+    <div class="uk-container" style="padding-top:10rem" id="introduccion">
+        <div class="uk-column-1-2 uk-text-justify">
+
+            <h1>Introducción</h1>
+
+            <p>
+                Las ciudades en las que actualmente vivimos han sido creadas con poca planeación urbana, siendo de épocas coloniales y sin medidas adecuadas para su expansión. Este tipo de urbanizaciones están conformadas por calles con un alto orden, acomodadas en cuadrículas perfectas y arreglos de cuadrículas elongadas. Las comunidades que lo componen se encuentran en el centro histórico de la ciudad. Representa zonas mixtas, con grandes sectores de industria, comercio, oficina y servicios conviviendo con viviendas de media a alta densidad. La red de calles muestra una centralidad de grado muy alta, con muchas conexiones entre nodos, y una intermediación alta, donde muchas calles forman parte del camino más corto. En el cluster se consume un promedio de 49 metros cuadrados de pavimento per cápita (Expansión Urbana MTY, 2020). Este tipo de calles cuadriculadas hacen de los cruces complicados debido que el flujo vehicular incita a entrar a las zonas interiores de las urbanizaciones, creando así un alto grado de tráfico, contaminación ambiental al igual que auditiva y dejando un espacio completamente orientado a los vehículos, rezagando al peatón y a los ciclistas. 
+            </p>
+        
+            <p>
+                Monterrey es una urbe donde el automóvil es necesario para trasladarse en la ciudad, la forma urbana es de tipo policéntrica con un centro dominante. Donde se encuentran grandes corredores de empleo y se extiende a lo largo del norte del Río Santa Catarina hacia la Universidad Autónoma de Nuevo León y al sur hasta la zona del Tecnológico de Monterrey. Esta ciudad de tipo policéntrica plantea una serie de retos complejos, especialmente en cuanto a transporte ya que la conexión entre subcentros sin atravesar el centro de la ciudad es casi imposible. Esto conlleva a que gran parte del tráfico vehicular de la ciudad se vea concentrado en este corredor en la zona del centro histórico. El modificar una ciudad al crear nuevas calles o cruceros representa un alto grado de inversión el cual a la larga puede no ser óptimo y causar que el tráfico regrese a esta zona a medida que la población aumente. En medida que el flujo vehicular logre llevar a los ciudadanos hacia vías rápidas y reducir el tiempo de tránsito vehicular en esta zona favorecerá la calidad de vida de los habitantes, se reducirán los niveles de contaminación y dará pie al uso de bicicletas y transporte público. 
+            </p>
+        
+            <p>
+                El objetivo se centra en encontrar un modelo de urbanización que permita mejorar el flujo vehicular, evitando congestionamientos y reduciendo niveles de contaminación. Esto sin la necesidad de implementar nuevas calles, únicamente cambiando sentidos, implementando semáforos, cambiando velocidades máximas y reduciendo el uso de vehículos en ciertas calles. Siendo modelado con un sistema de agentes los cuales permitirán modelar esta solución para ser evaluada.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="uk-container" style="padding-top:10rem;">
+        <div class="uk-height-large uk-background-cover uk-overflow-hidden uk-dark uk-flex uk-flex-top" style="background-image: url(https://www.orangesmile.com/common/img_city_maps/monterrey-map-0.jpg);">
+            <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-container" style="padding-top:10rem" id="contexto">
+        <div class="uk-column-1-2 uk-text-justify">
+
+            <h1>Contexto y problema</h1>
+
+            <p>
+                La planificación de urbes ha pasado en gran parte a ser dependiente del automóvil, resultando en consecuencias negativas para los ciudadanos. Existen diversos modelos de planificación para mejorar problemáticas del tipo que La zona metropolitana de Monterrey presenta. El caso de la Barcelona es uno de los más exitosos hasta la fecha, actualmente este modelo está siendo adoptado por otros países debido a su alta eficacia. El modelo de la Supermanzana de Barcelona es una estrategia innovadora de planificación urbana y de transporte que tiene como objetivo recuperar el espacio público para las personas, reducir el transporte motorizado, promover la movilidad sostenible y los estilos de vida activos, mitigando así los efectos del cambio climático. Para sustituir el actual uso del espacio público, mayormente ocupado por vehículos, por otros usos y funciones donde el ciudadano recupere su estatus y pase a ser el actor principal es necesario modificar la manera en la que se distribuye el flujo y cómo funcionan los espacios. El 60% del espacio público está dedicado al automóvil. Creando así ruido, contaminación, accidentes de tráfico, entre otras. El vehículo condiciona el resto de usos y funciones del espacio público. (3)
+            </p>
+        
+            <p>
+                Como solución a este problema Salvador Rueda ha replanteado el espacio público a través de un modelo urbano probado en Barcelona. Las vías básicas son las vías rápidas urbanas y son las vías por donde circula el vehículo de paso y el transporte público de superficie, creando una red específica que cubra toda la ciudad. La red viaria básica abraza varias manzanas del tejido creando así las supermanzanas, las cuales quedan definidas por el perímetro que dibuja la red. 
+            </p>
+        
+            <p>
+                En las intervias de las vías básicas se desenvuelven el resto de usuarios del espacio público: los ciudadanos, bicicletas, transporte de distribución, medico y de los residentes.Las supermanzanas acogen pues, el conjunto de usos que hoy se dan cita en cualquier parte de la ciudad menos uno, impedir la circulación del vehículo de paso en su interior. No son, por tanto, zonas peatonales estrictamente. Las supermanzanas son espacios cuya velocidad se restringe a 10 km/h (3)
+            </p>
+            <p>
+                <img data-src="https://blogs.iadb.org/ciudades-sostenibles/wp-content/uploads/sites/17/2015/01/supermanzanas-2.png" width="1800" height="1200" alt="" uk-img>
+            </p>
+            <p>
+                La periferia, definida por las vías básicas se reserva para los vehículos de paso y el transporte público de superficie (bus, autocares, taxis, etc.), en el interior se pueden crear redes para cada modo o no, dependiendo del ancho de la calle. A través de la implementación de las supermanzanas, las proporciones entre el espacio ocupado por el vehículo y por el resto de usos se invierten. (3)
+            </p>
+            <p>
+                Este modelo ha demostrado tener un alto grado de efectividad en el flujo vehicular de Barcelona. Tomando en cuenta que gran parte de la ciudad de Monterrey ha sido poco planeada y se ha ido modificando a partir de los años es difícil poder implementar un modelo como el de las supermanzanas en toda la ciudad. Sin embargo, gran parte del tráfico se concentra en la parte del centro de la ciudad, esto debido a zonas comerciales, centrales de abasto y oficinas tanto públicas como privadas. Esta zona cuenta con calles con un alto orden, acomodadas en cuadrículas perfectas y arreglos de cuadrículas elongadas. Las comunidades que lo componen se encuentran en el centro histórico de la ciudad. Representa zonas mixtas, con grandes sectores de industria, comercio, oficina y servicios conviviendo con viviendas de media a alta densidad. La red de calles muestra una centralidad de grado muy alta, con muchas conexiones entre nodos, y una intermediación alta, donde muchas calles forman parte del camino más corto. En el cluster se consume un promedio de 49 metros cuadrados de pavimento per cápita. Para poner a prueba este modelo hemos seleccionado una de las cuadrículas principales y con mayor tráfico vehicular de la zona. Esta cuadrícula es sumamente importante para la zona debido a que se encuentra cercano a la alameda, el mercado de juarez, una línea de metro y permite la conexión hacia otras zonas.(2) El implementar el modelo de las supermanzanas en el área permitiría evaluar si es viable hacerlo en el centro de Monterrey y ver que tanto reduciría el tráfico al igual que ayudará a mejorar la calidad de vida de los ciudadanos de la zona.  De igual manera, uno de los más grandes problemas a resolver es la cantidad de choques, Monterrey se caracteriza por ser la ciudad número uno en choques de méxico,   con el 19% de los accidentes del país, por lo que el implementar una cuadrícula sin necesidad de semáforos pondrá a prueba el modelo y demostrará que tanto podría cambiar la narrativa de los conductores de la ciudad. (4)
+            </p>
+
+            <p>
+                <img data-src="{{ url_for('static', filename='img/calles.png')}}" width="1800" height="1200" alt="" uk-img>
+            </p>
+        </div>
+    </div>
+
+    <div class="uk-container" style="padding-top:10rem;">
+        <div class="uk-height-large uk-background-cover uk-overflow-hidden uk-dark uk-flex uk-flex-top" style="background-image: url(https://realestatemarket.com.mx/images/2019/10-Octubre/1810/monterrey_perspectiva_imgresah.jpg);">
+            <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
+            </div>
+        </div>
+    </div>
+    
+    <div class="uk-container" style="padding-top:10rem" id="descripcion">
+        <div class="uk-column-1-2 uk-text-justify">
+
+            <h1>Descripción del sistema multiagente</h1>
+
+            <p>
+                Nuestro sistema multiagentes simula un modelo de supermanzana en una zona central de una ciudad cualquiera. El sistema consta de dos “módulos” principales. El primero se encarga de ejecutar una simulación con agentes basados en automóviles. Después de realizar la simulación, recopila los datos de cada agente durante la simulación y los exporta en un formato apropiado para su lectura. La segunda parte se encarga de desplegar en un ambiente tridimensional los resultados de dichos cálculos de la simulación, desplegando automóviles en una escena de una ciudad y replicando los movimientos de cada uno de ellos. 
+            </p>
+        
+            <p>
+                El primer módulo cuenta con tres tipos de agentes: Bicicleta, Carro y Camión. El agente de Carro y Camión comparten los mismos estados, aunque difieren un poco en las restricciones de las calles donde pueden transitar. Por otro lado, la bicicleta comparte la mayoría de los estados, pero, adicionalmente, puede dar vuelta a la derecha y solo puede viajar en las calles interiores. El modelo se encargará de generar múltiples agentes (de todos los tipos ya descritos) y los hará recorrer un modelo en forma de malla para observar el comportamiento que tienen al reaccionar a sus percepciones del ambiente.
+            </p>
+        
+            <p>
+                Mientras se ejecuta la simulación, se guardan las posiciones de cada agente y, finalizando, se exportan. Esta información se lee por Unity y éste se encarga de instanciar la cantidad correcta de tipos de agentes y de moverlos apropiadamente en el espacio tridimensional.
+            </p>
+            <p>
+                <img data-src="https://i1.wp.com/www.revistacesvimap.com/wp-content/uploads/2017/11/rev_101_seguriedad-vial_rejilla-supermanzana.jpg?ssl=1" width="1800" height="1200" alt="" uk-img>
+            </p>
+        </div>
+    </div>
+
+    <div class="uk-container" style="padding-top:10rem;">
+        <div class="uk-height-large uk-background-cover uk-overflow-hidden uk-dark uk-flex uk-flex-top" style="background-image: url(https://cdn.shopify.com/s/files/1/2017/8567/articles/Screen_Shot_2018-11-15_at_9.46.24_AM_7bcc15a6-8031-41c1-8b6e-51989400584e.png?v=1547498831);">
+            <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-container" style="padding-top:10rem" id="creditos">
+        <h1>Creditos y Equipo</h1>
+        <p>Este proyecto se realizó por estudiantes del Instituto Tecnológico y de Estudios Superiores de Monterrey de la carrera de Ingeniería de tecnologías computacionales</p>
+        <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
+            <div>
+                <div class="uk-card uk-card-secondary uk-card-body">
+                    <h3 class="uk-card-title">Juan Carlos Garfias Tovar</h3>
+                    <p>AgentPy, Unity, Web y Server</p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-secondary uk-card-body">
+                    <h3 class="uk-card-title">Jesús Rodriguez Tristan</h3>
+                    <p>AgentPy, Unity, Jsons y Física</p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-secondary uk-card-body">
+                    <h3 class="uk-card-title">Adrián González Saldívar</h3>
+                    <p>Unity, Menus y 3D</p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-secondary uk-card-body">
+                    <h3 class="uk-card-title">Ricardo Andres Arriaga Quezada</h3>
+                    <p>Unity, terreno, WebGL y 3D</p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-secondary uk-card-body">
+                    <h3 class="uk-card-title">María Raquel Landa Cavazos</h3>
+                    <p>Profesora de Unity (Equipo docente de apoyo para el proyecto)</p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-card uk-card-secondary uk-card-body">
+                    <h3 class="uk-card-title">Lorena Beatriz Martínez Elizalde</h3>
+                    <p>Profesora de Agentes (Equipo docente de apoyo para el proyecto)</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div class="uk-container" style="padding-top:10rem;padding-bottom:10rem">
+        <div class="uk-column-1-2 uk-text-justify">
+
+            <h1>Referencias y repositorio</h1>
+
+            <p>
+                Expansión Urbana Monterrey (2020) Expansión Urbana de Monterrey. Recuperado el  4 de noviembre de 2021, de: https://expansionurbanamty.mx/ 
+            </p>
+        
+            <p>
+                Mueller, N et al. (2020) Changing the urban design of cities for health: The superblock model. Recuperado el 4 de noviembre de 2021, de: https://www.sciencedirect.com/science/article/pii/S0160412019315223 
+            </p>
+        
+            <p>
+                Pérez, D (2016) 5 estados de México con más accidentes de auto. Recuperado el 10 de noviembre de 2021, de: https://bit.ly/31jbSGx 
+            </p>
+            <p>
+                Repositorio de Github
+                https://github.com/SeaWar741/SimulacionSuperManzanas
+            </p>
+        </div>
+    </div>
+
+    
+
+  </body>
+</html>

@@ -7,7 +7,7 @@ Nuestro sistema multiagentes simula un modelo de supermanzana en una zona centra
 El primer módulo cuenta con tres tipos de agentes: Bicicleta, Carro y Camión. El agente de Carro y Camión comparten los mismos estados, aunque difieren un poco en las restricciones de las calles donde pueden transitar. Por otro lado, la bicicleta comparte la mayoría de los estados, pero, adicionalmente, puede dar vuelta a la derecha y solo puede viajar en las calles interiores. El modelo se encargará de generar múltiples agentes (de todos los tipos ya descritos) y los hará recorrer un modelo en forma de malla para observar el comportamiento que tienen al reaccionar a sus percepciones del ambiente.
 Mientras se ejecuta la simulación, se guardan las posiciones de cada agente y, finalizando, se exportan. Esta información se lee por Unity y éste se encarga de instanciar la cantidad correcta de tipos de agentes y de moverlos apropiadamente en el espacio tridimensional.
 
-![Behaviour SuperManzana](img/portada2.jpg)
+![Behaviour SuperManzana](static/img/SuperManzana.png)
 
 ## **Requisitos:**
 A continuación se muestran las librerias y tecnologías necesarias para usar el proyecto:
@@ -20,6 +20,7 @@ A continuación se muestran las librerias y tecnologías necesarias para usar el
 - IPython
 - Anaconda
 - Unity 2019.4.18f1
+- Acces Control Allow Cross Origin (extensión)
 
 ## **Instalación:**
 Para la instalación recomendamos el uso de conda para los ambientes. Una vez instalado, realizar el siguiente comando en el directorio
@@ -54,4 +55,6 @@ La API corre en Python 3, para esto es necesario contar con las librerias necesa
 
 
 ## **Live Demo**
-Work in progress
+Para ejecutar el programa es necesario realizar la instalación y correr el código hasta la sección de servidor. Posteriormente abrir en el navegador el siguiente link:
+
+    http://localhost:3000/
