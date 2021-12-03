@@ -58,3 +58,6 @@ La API corre en Python 3, para esto es necesario contar con las librerias necesa
 Para ejecutar el programa es necesario realizar la instalación y correr el código hasta la sección de servidor. Posteriormente abrir en el navegador el siguiente link:
 
     http://localhost:3000/
+    
+## **Working simulation video**
+https://www.youtube.com/watch?v=1SXFx7iIgGE&t=364s
